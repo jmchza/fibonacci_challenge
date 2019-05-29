@@ -1,9 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+/**
+ * Example problem with existing solution and passing test.
+ * See problem 0 in the spec file for the assertion
+ * @returns {string}
+ */
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+
+
+exports.example = () => 8;
+
