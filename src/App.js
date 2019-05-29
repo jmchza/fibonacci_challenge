@@ -126,11 +126,9 @@ display(val){
             <Label data={X} /><br></br>
           </div>
           <div className="main-wrp">
-          {
-              <input type='text' id="theInput" style={{width: '265px'}} disabled={X > 0 && !isRunning}
+            <input type='text' id="theInput" style={{width: '265px'}} 
+              disabled={X > 0 && !isRunning}
               onKeyDown={this.handleKeyDown}></input>
-            } 
-            
           </div>
           <div className="main-wrp">
             <div>&nbsp;{msg}&nbsp;</div>
@@ -138,7 +136,7 @@ display(val){
           <div className="button-wrp">
             <Button item={{name: 'halt'}} onClickHandlker={this.stopCounter} isEnable={isRunning}/>
             <Button item={{name: 'resume'}} onClickHandlker={this.resumeCounter} isEnable={!isRunning}/>
-            <Button item={{name: 'quit'}} onClickHandlker={this.quitRunning} isEnable={!isRunning}/>
+            <Button item={{name: 'quit'}} onClickHandlker={this.quitRunning} isEnable={true}/>
           </div>
           </div>
         </header>
