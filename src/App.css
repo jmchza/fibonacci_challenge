@@ -85,7 +85,9 @@
     border-radius: 50%;
     display: inline-block;
     /* margin-left: 50px; */
-    padding: 1ex
+    text-align: center;
+    vertical-align: middle;
+    line-height: 45px;    
   }
 
   .label-cls{
