@@ -1,10 +1,9 @@
-/**
- * Example problem with existing solution and passing test.
- * See problem 0 in the spec file for the assertion
- * @returns {string}
- */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-
-
-exports.example = () => 8;
-
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
