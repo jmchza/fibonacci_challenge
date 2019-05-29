@@ -5,7 +5,7 @@ import Label from './components/Label'
 
 const ENTER_KEY = 13;
 
-function* fibonacci(number) {
+function* fibonacci() {
   var previous_first = 0, previous_second = 1, next = 1
   
   while(true) {
