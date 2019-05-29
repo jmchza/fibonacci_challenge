@@ -116,7 +116,7 @@ display(val){
 }
         
   render(){
-    const {counter, X, msg} = this.state
+    const {counter, X, isRunning, msg} = this.state
     return (
       <div className="App">
         <header className="App-header">
@@ -127,7 +127,7 @@ display(val){
           </div>
           <div className="main-wrp">
           {
-              <input type='text' id="theInput" style={{width: '265px'}}
+              <input type='text' id="theInput" style={{width: '265px'}} disabled={X > 0 && !isRunning}
               onKeyDown={this.handleKeyDown}></input>
             } 
             
@@ -136,9 +136,9 @@ display(val){
             <div>&nbsp;{msg}&nbsp;</div>
           </div>
           <div className="button-wrp">
-            <Button item={{name: 'halt'}} onClickHandlker={this.stopCounter}/>
-            <Button item={{name: 'resume'}} onClickHandlker={this.resumeCounter}/>
-            <Button item={{name: 'quit'}} onClickHandlker={this.quitRunning}/>
+            <Button item={{name: 'halt'}} onClickHandlker={this.stopCounter} isEnable={isRunning}/>
+            <Button item={{name: 'resume'}} onClickHandlker={this.resumeCounter} isEnable={!isRunning}/>
+            <Button item={{name: 'quit'}} onClickHandlker={this.quitRunning} isEnable={!isRunning}/>
           </div>
           </div>
         </header>

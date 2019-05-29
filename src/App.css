@@ -45,6 +45,17 @@
   min-width: 60px;
   }
 
+  .disable_botton{
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #fff !important;
+    border-radius: 50px;
+    display: inline-block;
+    border: none;
+    margin-left: 1em;
+    min-width: 60px;
+  }
+
   .main-wrp{
     display: flex;
     flex-direction: row;
