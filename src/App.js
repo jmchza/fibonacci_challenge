@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Button from './components/Button';
-import InputBox from './components/InputBox'
 import Label from './components/Label'
 
 const ENTER_KEY = 13;
@@ -107,7 +106,6 @@ class App extends React.Component{
         }
       }
       document.getElementById('theInput').value = ''
-      // e.target.value = ""
     }
 }
 
@@ -115,12 +113,10 @@ display(val){
   const array = Object.keys(val).sort((a,b) => {return val[b]-val[a]})
 
   return array.map(x => `${x}:${val[x]},`)
-  // return Object.keys(val).map(x=> `${x}:${val[x]},`)
 }
         
   render(){
     const {counter, X, msg} = this.state
-    // console.log('lastEntry', lastEntry, sequence)
     return (
       <div className="App">
         <header className="App-header">
