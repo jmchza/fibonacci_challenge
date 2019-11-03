@@ -1,0 +1,67 @@
+.App {
+  /* text-align: center; */
+}
+
+.App-modal-content {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+  color: black;
+}
+
+.App {
+  /* background-color: #282c34; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(5px + 2vmin);
+  color: black;
+}
+
+.btn-props{
+  margin-left: .5em;
+}
+
+.btn-close {
+  position: absolute;
+  right: 15px;
+  top: 8px;
+  background-color: white;
+  cursor: pointer; 
+}
+
+a{
+  color: black;
+  font-weight: 550;
+}
+
+.circle{
+  border: 10px solid rgb(101, 184, 119);
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+  z-index: 86;
+  margin-bottom: 5ex;
+}
+
+.counter{
+  position: relative;
+  top: 15px;
+  left: 30px;
+  font-size: 1.4em;
+}
+
+.msg{
+  width: 200px;
+  height: 30px;
+}
+
+.fixBox{
+  width: 550px;
+}
+
+.modalClass{
+  text-align: center;
+}
