@@ -1,133 +1,74 @@
 import React from 'react';
 import Modal from 'react-awesome-modal';
 import Button from 'react-bootstrap/Button'
+
 import './App.css';
-
-function* fibonacci() {
-  var previous_first = 0, previous_second = 1, next = 1
-  
-  while(true) {
-      next = previous_first + previous_second
-      previous_first = previous_second
-      previous_second = next
-      
-      yield next
-  }
-
-}
-
-const fx = fibonacci()
 
 class App extends React.Component{
   state = {
-    counter: 0,
     sequence: [],
     frequence: -1,
-    numbers: [],
+    dos: 'dos',
     isRunning: false,
     msg: " ",
-    modalVisible: false,
+    uno: 'uno',
     isDone: false,
+    freqB: -1
   }
   
   constructor(props) {
     super(props);
     this.inputElement = React.createRef();
-    this.handleKeyDown = this.handleKeyDown.bind(this)
     
   }
 
   componentDidMount(){
-    let val = 0 
-    let numbers = []
-    while(val < 1000){
-        val = fx.next().value
-        numbers.push(val)
-      }
-    this.setState({sequence: numbers})
   }
 
   componentWillUnmount(){
     clearInterval(this.myFrequency)
-    
   }
 
-  updateInterval = () => {
-    const {counter, frequence} = this.state
-    console.log('ui', counter, frequence)
-    let tempCounter = frequence >= counter && counter > 0
-      ? counter -1 
-      : frequence
-    
-    this.setState({counter: tempCounter, msg: ''})
+  switchInput = (inputName) => {
+    const {isRunning } = this.state;
+    // Get the next input field using it's name
+    const afield = document.querySelector(`input[name=${inputName}`);
+
+    (afield !== null && isRunning )? afield.focus() : console.log(`${inputName} not found`);
+
   }
 
-  startCounter = () =>{
-    this.myFrequency = setInterval(this.updateInterval, 1000)
+  startCounter = () => {
+    this.setState({isRunning: true});
+
+    const afield = document.querySelector(`input[name=uno`);
+    (afield !== null )? afield.focus() : console.log(`not found`);
   }
 
-  resumeCounter = () => {
-    this.startCounter()
-    this.setState({
-      isRunning: !this.state.isRunning, 
-      msg:  'timer resumed',
-    })
+  stopCounters = () =>{
+    this.setState({isRunning: false });
+    clearInterval(this.myFrequency);
+    clearInterval(this.freqB);
   }
 
-  stopCounter = () =>{
-    clearInterval(this.myFrequency)
-    this.setState({
-      isRunning: !this.state.isRunning, 
-      msg: 'timer halted',
-    })
-  }
+  focuHandler = (e) => {
+    const {isRunning} = this.state;
+    // console.log("focus entered", e.target.name, 'isRunning: ', isRunning);
+    const number = e.target.name;
 
-  handleKeyDown ( e) {
-    const {isRunning, numbers, sequence} = this.state
-    const currentEntry = this.inputElement.current.value
-    
-    if (e.key === "Enter") {
-      if(!isRunning) {
-        this.setState({
-          isRunning: !isRunning, 
-          frequence: parseInt(currentEntry, 10),
-          counter: parseInt(currentEntry, 10),
-        })
-        this.startCounter()
-      }else{
-        
-        if(currentEntry && Number.isInteger(parseInt(currentEntry))){
-          
-          const obj = Object.assign([], numbers)
-          obj[currentEntry] = currentEntry in numbers ? (1 + obj[currentEntry]) : 1
-          
-          this.setState({
-            numbers: obj, 
-            msg: sequence.includes(parseInt(currentEntry, 10)) ? 'FIB' : ''
-          });
-        }
-
-      }
-
-      this.inputElement.current.value = ''
+    if (number === 'uno') {
+      console.log('freqDOS a:: ', this.freqB);
+      clearInterval(this.freqB);
+      this.freqB = setInterval(() =>{this.switchInput('dos')}, 10000);
+      console.log('freqDOS b:: ', this.freqB);
+    } else {
+      console.log('freqUNO a:: ', this.myFrequency);
+      clearInterval(this.myFrequency);
+      this.myFrequency = setInterval(() =>{this.switchInput('uno')}, 10000);
+      console.log('freqUNO b:: ', this.myFrequency);
     }
-}
 
-parseResults(){
-  const array = Object.keys(this.state.numbers).sort((a,b) => {return this.state.numbers[b]-this.state.numbers[a]})
-
-  return array.map(x => `${x}:${this.state.numbers[x]},`)
-}
-closeModal() {
-  this.setState({
-      modalVisible : false
-  });
-}
-
-openModal = (  ) => {
-  clearInterval(this.myFrequency)
-  this.setState({modalVisible: true, isDone: true})
-}
+  }
 
   render(){
     const {counter, frequence, isRunning, msg, modalVisible, isDone} = this.state
@@ -139,13 +80,18 @@ openModal = (  ) => {
         <div className="form-group">
           <label className="form-label">{frequence  > 0 ? "Please enter the next number: " 
                   : "Please enter a number for your frequence:(in seconds)"}</label>
-          <input type='text' className="form-control fixBox" ref={this.inputElement}
-            disabled={frequence > 0 && !isRunning} 
-            onKeyDown={this.handleKeyDown}></input>
+
+          <input type='text' className="form-control fixBox" ref={this.inputElement} name="uno"
+            onFocus={this.focuHandler}></input>
+
+          <br></br>
+          <input type='text' className="form-control fixBox" ref={this.inputElement} name="dos"
+            onFocus={this.focuHandler}></input>
+
           <small className="text-muted form-text">After each number press enter</small>
         </div>
         <div className="main-wrp">
-          <div className="msg">{counter === 0 ? this.parseResults() : msg}</div>
+          <div className="msg">{ msg}</div>
           <br/>
         </div>
         <Modal visible={modalVisible} width="400" height="250" effect="fadeInUp" onClickAway={() => this.closeModal()}>
@@ -154,13 +100,11 @@ openModal = (  ) => {
             <br/><br/>
             <h1>Game Over</h1>
             <p>Thanks for playing</p>
-            <p>{this.parseResults()}</p>
           </div>
         </Modal>
         <div>
-          <Button className="btn-props" variant="outline-success" size="lg" onClick={this.stopCounter} disabled={!isRunning || isDone }>Halt</Button>
-          <Button className="btn-props" variant="outline-success" size="lg" onClick={this.resumeCounter} disabled={isRunning || isDone}>Resume</Button>
-          <Button className="btn-props" variant="outline-success" size="lg" onClick={this.openModal} disabled={isDone}>Quit</Button>
+          <Button className="btn-props" variant="outline-success" size="lg" onClick={this.stopCounters} disabled={!isRunning || isDone }>Stop</Button>
+          <Button className="btn-props" variant="outline-success" size="lg" onClick={this.startCounter} disabled={isRunning}>Start</Button>
         </div>
       </div>
     );
